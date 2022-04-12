@@ -1,0 +1,3 @@
+
+class ForeignFunction:
+    pass
