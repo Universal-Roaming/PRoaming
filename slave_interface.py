@@ -1,9 +1,16 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod, ABC
+from concurrent.futures import Future
+from typing import Union
 
-class SlaveInterface(ABC):
+from decorator.foreign_function import foreign_function
+from marker.foreign_service import ForeignService
+from model.addressbook_pb2 import Person
 
+
+class SlaveInterface(ForeignService):
     @abstractmethod
-    def get_person(self, purchase) -> int:
+    @foreign_function(function_signature='get_person', is_async=True, return_type=Person)
+    def get_person(self, purchase):
         pass
 
     @abstractmethod
