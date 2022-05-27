@@ -1,9 +1,9 @@
 import typing
 
 
-def foreign_function(function_signature, time_out=None, is_async=False):
+def foreign_function_impl(function_signature, time_out=None, is_async=False):
     def func_wrapper(func):
-        func.__is_foreign__ = True
+        func.__is_foreign_impl__ = True
         input_param_types = []
         return_type = None
         for key, value in func.__annotations__.items():
@@ -14,6 +14,7 @@ def foreign_function(function_signature, time_out=None, is_async=False):
                     return_type = value
             else:
                 input_param_types.append(value)
+
         func.__foreign_execution_params__ = {
             "function_signature": function_signature,
             "time_out": time_out,

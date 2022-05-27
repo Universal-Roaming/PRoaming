@@ -2,6 +2,8 @@ from concurrent.futures import Future
 
 from dto.task_request import TaskRequest
 from processor.communicator import Communicator
+from util.constant import LENGTH_OF_UNIQUE_ID
+from util.helper import unique_id
 
 
 class OffLoader:
@@ -15,7 +17,7 @@ class OffLoader:
 
     def offload_task(self, task_request: TaskRequest):
 
-        token_id = self.__impl_signature + "::" + task_request.function_signature + "::" + "sdsdsdsd"
+        token_id = self.__impl_signature + "::" + task_request.function_signature + "::" + unique_id(LENGTH_OF_UNIQUE_ID)
 
         task_delegation_response = Future()
 

@@ -1,18 +1,19 @@
-from abc import abstractmethod, ABC
-from concurrent.futures import Future
-from typing import Union
+from abc import abstractmethod
+from typing import Awaitable
 
 from decorator.foreign_function import foreign_function
 from marker.foreign_service import ForeignService
-from model.addressbook_pb2 import Person
+from model.addressbook_pb2 import Person, AddressBook
 
 
 class SlaveInterface(ForeignService):
+
     @abstractmethod
-    @foreign_function(function_signature='get_person', is_async=True, return_type=Person)
-    def get_person(self, purchase):
+    @foreign_function(function_signature='getPerson', is_async=False)
+    def get_person(self, addressbook: AddressBook) -> Person:
         pass
 
     @abstractmethod
-    def get_async_person(self, sale) -> int:
+    @foreign_function(function_signature='getAsyncPerson', is_async=True)
+    def get_async_person(self, addressbook: AddressBook) -> Awaitable[Person]:
         pass
